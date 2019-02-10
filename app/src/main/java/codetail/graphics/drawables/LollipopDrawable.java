@@ -133,4 +133,19 @@ public abstract class LollipopDrawable extends Drawable {
     public void getHotspotBounds(Rect outRect) {
         outRect.set(getBounds());
     }
+
+    /**
+     * Return the drawable's dirty bounds Rect. Note: for efficiency, the
+     * returned object may be the same object stored in the drawable (though
+     * this is not guaranteed).
+     * <p>
+     * By default, this returns the full drawable bounds. Custom drawables may
+     * override this method to perform more precise invalidation.
+     *
+     * @return The dirty bounds of this drawable
+     */
+    public Rect getDirtyBounds() {
+        return getBounds();
+    }
+
 }
