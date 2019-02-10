@@ -147,5 +147,4 @@ public abstract class LollipopDrawable extends Drawable {
     public Rect getDirtyBounds() {
         return getBounds();
     }
-
 }
