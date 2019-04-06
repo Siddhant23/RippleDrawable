@@ -1,9 +1,9 @@
 package codetail.graphics.drawables;
 
-import android.os.Build;
-
 import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
+
+import android.os.Build;
 
 /**
  * Helper class to avoid boilerplate Build version checks
@@ -11,6 +11,7 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
  * @hide
  */
 class Android {
+
     public static int VERSION = Build.VERSION.SDK_INT;
 
     /**

@@ -16,6 +16,9 @@
 
 package codetail.graphics.drawables;
 
+import static codetail.graphics.drawables.TypedArrayCompat.getDimensionPixelOffset;
+import static codetail.graphics.drawables.TypedArrayCompat.getResourceId;
+
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -33,16 +36,10 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-
+import dreamers.graphics.R;
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-
-import dreamers.graphics.R;
-
-import static codetail.graphics.drawables.TypedArrayCompat.getDimensionPixelOffset;
-import static codetail.graphics.drawables.TypedArrayCompat.getResourceId;
 
 /**
  * A Drawable that manages an array of other Drawables. These are drawn in array
@@ -63,6 +60,7 @@ import static codetail.graphics.drawables.TypedArrayCompat.getResourceId;
  * @attr ref android.R.styleable#LayerDrawableItem_android_id
  */
 public class LayerDrawable extends LollipopDrawable implements Drawable.Callback {
+
     /**
      * Padding mode used to nest each layer inside the padding of the previous
      * layer.
@@ -139,7 +137,8 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme) throws XmlPullParserException, IOException {
+    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme)
+            throws XmlPullParserException, IOException {
         super.inflate(r, parser, attrs, theme);
 
         final TypedArray a = obtainAttributes(r, theme, attrs, R.styleable.LayerDrawable);
@@ -174,13 +173,15 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     /**
      * Inflates child layers using the specified parser.
      */
-    private void inflateLayers(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme) throws XmlPullParserException, IOException {
+    private void inflateLayers(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme)
+            throws XmlPullParserException, IOException {
         final LayerState state = mLayerState;
 
         final int innerDepth = parser.getDepth() + 1;
         int type;
         int depth;
-        while ((type = parser.next()) != XmlPullParser.END_DOCUMENT && ((depth = parser.getDepth()) >= innerDepth || type != XmlPullParser.END_TAG)) {
+        while ((type = parser.next()) != XmlPullParser.END_DOCUMENT && ((depth = parser.getDepth()) >= innerDepth
+                || type != XmlPullParser.END_TAG)) {
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -198,7 +199,9 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
                 while ((type = parser.next()) == XmlPullParser.TEXT) {
                 }
                 if (type != XmlPullParser.START_TAG) {
-                    throw new XmlPullParserException(parser.getPositionDescription() + ": <item> tag requires a 'drawable' attribute or " + "child tag defining a drawable");
+                    throw new XmlPullParserException(
+                            parser.getPositionDescription() + ": <item> tag requires a 'drawable' attribute or "
+                                    + "child tag defining a drawable");
                 }
                 layer.mDrawable = LollipopDrawablesCompat.createFromXmlInner(r, parser, attrs, theme);
             }
@@ -221,14 +224,19 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
         // Extract the theme attributes, if any.
         layer.mThemeAttrs = TypedArrayCompat.extractThemeAttrs(a);
 
-        layer.mInsetL = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_left, layer.mInsetL);
-        layer.mInsetT = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_top, layer.mInsetT);
-        layer.mInsetR = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_right, layer.mInsetR);
-        layer.mInsetB = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_bottom, layer.mInsetB);
+        layer.mInsetL = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_left,
+                layer.mInsetL);
+        layer.mInsetT = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_top,
+                layer.mInsetT);
+        layer.mInsetR = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_right,
+                layer.mInsetR);
+        layer.mInsetB = getDimensionPixelOffset(theme, a, extracted, R.styleable.LayerDrawableItem_android_bottom,
+                layer.mInsetB);
 
         layer.mId = getResourceId(theme, a, extracted, R.styleable.LayerDrawableItem_android_id, layer.mId);
 
-        final Drawable dr = TypedArrayCompat.getDrawable(theme, a, extracted, R.styleable.LayerDrawableItem_android_drawable);
+        final Drawable dr = TypedArrayCompat
+                .getDrawable(theme, a, extracted, R.styleable.LayerDrawableItem_android_drawable);
         if (dr != null) {
             layer.mDrawable = dr;
         }
@@ -489,7 +497,8 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
 
     @Override
     public int getChangingConfigurations() {
-        return super.getChangingConfigurations() | mLayerState.mChangingConfigurations | mLayerState.mChildrenChangingConfigurations;
+        return super.getChangingConfigurations() | mLayerState.mChangingConfigurations
+                | mLayerState.mChildrenChangingConfigurations;
     }
 
     @Override
@@ -774,7 +783,8 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
         final int N = mLayerState.mNum;
         for (int i = 0; i < N; i++) {
             final ChildDrawable r = array[i];
-            r.mDrawable.setBounds(bounds.left + r.mInsetL + padL, bounds.top + r.mInsetT + padT, bounds.right - r.mInsetR - padR, bounds.bottom - r.mInsetB - padB);
+            r.mDrawable.setBounds(bounds.left + r.mInsetL + padL, bounds.top + r.mInsetT + padT,
+                    bounds.right - r.mInsetR - padR, bounds.bottom - r.mInsetB - padB);
 
             if (nest) {
                 padL += mPaddingL[i];
@@ -893,6 +903,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     static class ChildDrawable {
+
         public Drawable mDrawable;
         public TypedValue[] mThemeAttrs;
         public int mInsetL, mInsetT, mInsetR, mInsetB;
@@ -921,6 +932,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     static class LayerState extends Drawable.ConstantState {
+
         int mNum;
         ChildDrawable[] mChildren;
         TypedValue[] mThemeAttrs;

@@ -15,15 +15,14 @@
  */
 package codetail.graphics.drawables;
 
+import static android.graphics.PorterDuff.Mode;
+
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.support.v4.util.LruCache;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Log;
-
 import java.lang.reflect.Method;
-
-import static android.graphics.PorterDuff.Mode;
 
 /**
  * Stolen
@@ -31,15 +30,16 @@ import static android.graphics.PorterDuff.Mode;
  * @hide
  */
 class DrawableReflectiveUtils {
+
     private final static String TAG = "DrawableReflectiveUtils";
 
     private static SimpleArrayMap<String, Method> sCachedMethods = new SimpleArrayMap<>();
     private static final ColorFilterLruCache COLOR_FILTER_CACHE = new ColorFilterLruCache(6);
 
-    final static Class[] INT_ARG = {int.class};
+    private final static Class[] INT_ARG = {int.class};
 
-    @SuppressWarnings("unchecked")
-    public static <T> T tryInvoke(Object target, String methodName, Class<?>[] argTypes, Object... args) {
+    @SuppressWarnings({"unchecked", "UnusedReturnValue", "SameParameterValue"})
+    private static <T> T tryInvoke(Object target, String methodName, Class<?>[] argTypes, Object... args) {
 
         try {
             Method method = sCachedMethods.get(methodName);
@@ -58,7 +58,8 @@ class DrawableReflectiveUtils {
         return null;
     }
 
-    public static PorterDuffColorFilter setColor(PorterDuffColorFilter cf, int color, Mode mode) {
+    @SuppressWarnings("SameParameterValue")
+    static PorterDuffColorFilter setColor(PorterDuffColorFilter cf, int color, Mode mode) {
         if (!Android.isLollipop()) {
             // First, lets see if the cache already contains the color filter
             PorterDuffColorFilter filter = COLOR_FILTER_CACHE.get(color, mode);
@@ -72,16 +73,14 @@ class DrawableReflectiveUtils {
             return filter;
         }
 
-        /**
-         * Otherwise invoke native one
-         */
+        // Otherwise invoke native one
         tryInvoke(cf, "setColor", INT_ARG, color);
         return cf;
     }
 
     private static class ColorFilterLruCache extends LruCache<Integer, PorterDuffColorFilter> {
 
-        public ColorFilterLruCache(int maxSize) {
+        ColorFilterLruCache(int maxSize) {
             super(maxSize);
         }
 

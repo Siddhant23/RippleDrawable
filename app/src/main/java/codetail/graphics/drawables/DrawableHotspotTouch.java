@@ -3,35 +3,36 @@ package codetail.graphics.drawables;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-
 import java.lang.ref.WeakReference;
 
-public class DrawableHotspotTouch implements View.OnTouchListener{
+public class DrawableHotspotTouch implements View.OnTouchListener {
 
-    LollipopDrawable mHotspotDrawable;
+    private LollipopDrawable mHotspotDrawable;
 
-    PerformClick mPerformClick;
-    CheckForTap mPendingCheckForTap;
-    CheckForLongPress mPendingCheckForLongPress;
-    UnsetPressedState mUnsetPressedState;
+    private PerformClick mPerformClick;
+    private CheckForTap mPendingCheckForTap;
+    private CheckForLongPress mPendingCheckForLongPress;
+    private UnsetPressedState mUnsetPressedState;
 
-    boolean mHasPerformedLongPress;
+    private boolean mHasPerformedLongPress;
 
-    int mTouchSlop;
-    boolean mPrePressed;
-    boolean mInsideScrollContainer;
+    private int mTouchSlop;
+    private boolean mPrePressed;
+    private boolean mInsideScrollContainer;
 
+    @SuppressWarnings("unused")
     public DrawableHotspotTouch() {
         this(null);
     }
 
-    public DrawableHotspotTouch(LollipopDrawable hotspot){
+    public DrawableHotspotTouch(LollipopDrawable hotspot) {
         mHotspotDrawable = hotspot;
 
         mTouchSlop = -1;
     }
 
-    public void setInsideScrollContainer(boolean inside){
+    @SuppressWarnings("unused")
+    public void setInsideScrollContainer(boolean inside) {
         mInsideScrollContainer = inside;
     }
 
@@ -40,7 +41,7 @@ public class DrawableHotspotTouch implements View.OnTouchListener{
         final float x = event.getX();
         final float y = event.getY();
 
-        if(v.isClickable() || v.isLongClickable()) {
+        if (v.isClickable() || v.isLongClickable()) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_UP:
                     if (mPrePressed || v.isPressed()) {
@@ -158,7 +159,8 @@ public class DrawableHotspotTouch implements View.OnTouchListener{
         }
     }
 
-    void setPressed(View target, boolean pressed, float x, float y){
+    @SuppressWarnings("SameParameterValue")
+    private void setPressed(View target, boolean pressed, float x, float y) {
         target.setPressed(pressed);
         mHotspotDrawable.setHotspot(x, y);
     }
@@ -171,19 +173,19 @@ public class DrawableHotspotTouch implements View.OnTouchListener{
      *
      * @hide
      */
-    public boolean pointInView(View target, float localX, float localY, float slop) {
+    private boolean pointInView(View target, float localX, float localY, float slop) {
         return localX >= -slop && localY >= -slop && localX < ((target.getRight() - target.getLeft()) + slop) &&
                 localY < ((target.getBottom() - target.getTop()) + slop);
     }
 
 
-    void removeTapCallback(View target){
-        if(mPendingCheckForTap != null){
+    private void removeTapCallback(View target) {
+        if (mPendingCheckForTap != null) {
             target.removeCallbacks(mPendingCheckForTap);
         }
     }
 
-    void removeLongPressCallback(View target){
+    private void removeLongPressCallback(View target) {
         if (mPendingCheckForLongPress != null) {
             target.removeCallbacks(mPendingCheckForLongPress);
         }
@@ -194,19 +196,19 @@ public class DrawableHotspotTouch implements View.OnTouchListener{
         WeakReference<View> target;
 
         private PerformClick(View target) {
-            this.target = new WeakReference<View>(target);
+            this.target = new WeakReference<>(target);
         }
 
         @Override
         public void run() {
-            if(target.get() != null){
+            if (target.get() != null) {
                 target.get().performClick();
             }
         }
     }
 
 
-    final class CheckForTap implements Runnable{
+    final class CheckForTap implements Runnable {
 
         View target;
         float x, y;
