@@ -2,7 +2,7 @@ package dreamers.sample;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import codetail.graphics.drawables.DrawableHotspotTouch;
 import codetail.graphics.drawables.LollipopDrawable;
 import codetail.graphics.drawables.LollipopDrawablesCompat;
 
-public class SampleActivity extends ActionBarActivity {
+public class SampleActivity extends AppCompatActivity {
 
     private ListView mListView;
     private FloatingActionButton mActionButton;

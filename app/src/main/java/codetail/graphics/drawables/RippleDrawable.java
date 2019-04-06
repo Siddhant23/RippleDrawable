@@ -18,8 +18,10 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.os.Build.VERSION_CODES;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -169,10 +171,6 @@ public class RippleDrawable extends LayerDrawable {
     public RippleDrawable(@NonNull ColorStateList color, @Nullable Drawable content,
                           @Nullable Drawable mask) {
         this(new RippleState(null, null, null), null);
-
-        if (color == null) {
-            throw new IllegalArgumentException("RippleDrawable requires a non-null color");
-        }
 
         if (content != null) {
             addLayer(content, null, 0, 0, 0, 0, 0);
@@ -587,6 +585,7 @@ public class RippleDrawable extends LayerDrawable {
      *
      * @param outline Outline in which to place the first available layer outline
      */
+    @RequiresApi(api = VERSION_CODES.LOLLIPOP)
     @Override
     public void getOutline(@NonNull Outline outline) {
         final LayerState state = mLayerState;
@@ -608,13 +607,23 @@ public class RippleDrawable extends LayerDrawable {
         // Clip to the dirty bounds, which will be the drawable bounds if we
         // have a mask or content and the ripple bounds if we're projecting.
         final Rect bounds = getDirtyBounds();
-        final int saveCount = canvas.save(Canvas.CLIP_SAVE_FLAG);
+
+        canvas.save();
+
         canvas.clipRect(bounds);
 
         drawContent(canvas);
         drawBackgroundAndRipples(canvas);
 
-        canvas.restoreToCount(saveCount);
+        canvas.restore();
+
+//        final int saveCount = canvas.save(Canvas.CLIP_SAVE_FLAG);
+//        canvas.clipRect(bounds);
+//
+//        drawContent(canvas);
+//        drawBackgroundAndRipples(canvas);
+//
+//        canvas.restoreToCount(saveCount);
     }
 
     @Override

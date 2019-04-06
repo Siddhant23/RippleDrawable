@@ -21,7 +21,7 @@
         android:layout_height="56dp"
         android:layout_gravity="right|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:src="@drawable/abc_ic_search_api_material"
         />
 
 </FrameLayout>
