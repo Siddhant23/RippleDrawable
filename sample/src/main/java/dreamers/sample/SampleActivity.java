@@ -1,5 +1,6 @@
 package dreamers.sample;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,26 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-
 import codetail.graphics.drawables.DrawableHotspotTouch;
 import codetail.graphics.drawables.LollipopDrawable;
 import codetail.graphics.drawables.LollipopDrawablesCompat;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class SampleActivity extends AppCompatActivity {
 
     private ListView mListView;
     private FloatingActionButton mActionButton;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
 
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = findViewById(R.id.list);
         mListView.setSelector(getDrawable2(R.drawable.list_selector));
         mListView.setAdapter(new ListAdapter());
 
-        mActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        mActionButton = findViewById(R.id.fab);
         mActionButton.setBackgroundDrawable(getDrawable2(R.drawable.fab_background));
         mActionButton.setClickable(true);
         mActionButton.setOnTouchListener(
@@ -38,7 +40,7 @@ public class SampleActivity extends AppCompatActivity {
      * {@link #getDrawable(int)} is already taken by Android API
      * and method is final, so we need to give another name :(
      */
-    public Drawable getDrawable2(int id){
+    public Drawable getDrawable2(int id) {
         return LollipopDrawablesCompat.getDrawable(getResources(), id, getTheme());
     }
 
@@ -61,7 +63,7 @@ public class SampleActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null){
+            if (convertView == null) {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
             }
 

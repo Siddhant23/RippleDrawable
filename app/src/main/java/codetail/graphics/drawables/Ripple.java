@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator;
 /**
  * Draws a Material ripple.
  */
+@SuppressWarnings("WeakerAccess")
 class Ripple {
     private static final TimeInterpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
     private static final TimeInterpolator DECEL_INTERPOLATOR = new LogInterpolator();
@@ -119,11 +120,13 @@ class Ripple {
         }
     }
 
+    @SuppressWarnings("unused")
     public void setOpacity(float a) {
         mOpacity = a;
         invalidateSelf();
     }
 
+    @SuppressWarnings("unused")
     public float getOpacity() {
         return mOpacity;
     }
@@ -297,6 +300,7 @@ class Ripple {
         }
     }
 
+    @SuppressWarnings("unused")
     private Paint getTempPaint(Paint original) {
         if (mTempPaint == null) {
             mTempPaint = new Paint();

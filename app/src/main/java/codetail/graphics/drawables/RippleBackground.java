@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 /**
  * Draws a Material ripple.
  */
+@SuppressWarnings("WeakerAccess")
 class RippleBackground {
     private static final TimeInterpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
 
@@ -194,6 +195,7 @@ class RippleBackground {
         }
     }
 
+    @SuppressWarnings("unused")
     private Paint getTempPaint(Paint original) {
         if (mTempPaint == null) {
             mTempPaint = new Paint();
@@ -202,6 +204,7 @@ class RippleBackground {
         return mTempPaint;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void exitSoftware(int opacityDuration, int inflectionDuration, int inflectionOpacity) {
         final ObjectAnimator outerOpacityAnim;
         if (inflectionDuration > 0) {

@@ -3,9 +3,8 @@ package dreamers.sample;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageButton;
 
-public class FloatingActionButton extends ImageButton{
+public class FloatingActionButton extends android.support.v7.widget.AppCompatImageButton {
 
     public FloatingActionButton(Context context) {
         this(context, null);

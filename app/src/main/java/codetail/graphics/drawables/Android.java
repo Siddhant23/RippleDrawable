@@ -12,7 +12,7 @@ import android.os.Build;
  */
 class Android {
 
-    public static int VERSION = Build.VERSION.SDK_INT;
+    private static int VERSION = Build.VERSION.SDK_INT;
 
     /**
      * Return whether current {@link #VERSION} is equals Lollipop(21)
@@ -21,7 +21,7 @@ class Android {
      * @return whether current version is equals Lollipop(21)
      * sdk version
      */
-    public static boolean isLollipop() {
+    static boolean isLollipop() {
         return VERSION >= LOLLIPOP;
     }
 
@@ -32,7 +32,7 @@ class Android {
      * @return whether current version is equals Kitkat(19)
      * sdk version
      */
-    public static boolean isKitkat() {
+    static boolean isKitkat() {
         return VERSION >= KITKAT;
     }
 
