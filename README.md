@@ -35,6 +35,9 @@ dependencies {
 }
 ```
 
+**Note:** The `$LATEST_VERSION` string should be replaced with the latest version. The available versions can be found
+here: https://jitpack.io/#addisonElliott/RippleDrawable
+
 ## Usage
 
 Create your desired ripple XML and place it in the `drawable/` folder. An example ripple effect XML is shown below,
