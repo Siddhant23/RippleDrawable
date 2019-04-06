@@ -59,6 +59,7 @@ import org.xmlpull.v1.XmlPullParserException;
  * @attr ref android.R.styleable#LayerDrawableItem_android_drawable
  * @attr ref android.R.styleable#LayerDrawableItem_android_id
  */
+@SuppressWarnings("WeakerAccess")
 public class LayerDrawable extends LollipopDrawable implements Drawable.Callback {
 
     /**
@@ -154,6 +155,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     /**
      * Initializes the constant state from the values in the typed array.
      */
+    @SuppressWarnings("unused")
     private void updateStateFromTypedArray(Theme theme, TypedArray a, TypedValue[] extracted) {
         final LayerState state = mLayerState;
 
@@ -636,10 +638,6 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     @Override
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public int getAlpha() {
-        if (!Android.isKitkat()) {
-            return -1;
-        }
-
         final ChildDrawable[] array = mLayerState.mChildren;
         if (mLayerState.mNum > 0) {
             // All layers should have the same alpha set on them - just return
@@ -688,6 +686,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
      * @see PixelFormat#TRANSPARENT
      * @see PixelFormat#OPAQUE
      */
+    @SuppressWarnings("unused")
     public void setOpacity(int opacity) {
         mOpacityOverride = opacity;
     }

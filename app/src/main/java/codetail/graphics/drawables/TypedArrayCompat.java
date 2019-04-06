@@ -32,8 +32,8 @@ class TypedArrayCompat {
      * @param index Index of attribute to retrieve.
      * @return ColorStateList for the attribute, or null if not defined.
      */
-    public static ColorStateList getColorStateList(Resources.Theme theme, TypedArray a,
-                                                   TypedValue[] values, int index) {
+    static ColorStateList getColorStateList(Resources.Theme theme, TypedArray a,
+            TypedValue[] values, int index) {
         if (values != null && theme != null) {
             TypedValue v = values[index];
 
@@ -63,7 +63,7 @@ class TypedArrayCompat {
      * defined by {@link android.content.pm.ActivityInfo}.
      * @see android.content.pm.ActivityInfo
      */
-    public static int getChangingConfigurations(TypedArray array) {
+    static int getChangingConfigurations(TypedArray array) {
         return IMPL.getChangingConfigurations(array);
     }
 
@@ -73,7 +73,7 @@ class TypedArrayCompat {
      * @param index Index of attribute to retrieve.
      * @return Drawable for the attribute, or null if not defined.
      */
-    public static Drawable getDrawable(Resources.Theme theme, TypedArray a, TypedValue[] values, int index) {
+    static Drawable getDrawable(Resources.Theme theme, TypedArray a, TypedValue[] values, int index) {
 
         if (values != null && theme != null) {
             TypedValue v = values[index];
@@ -109,7 +109,7 @@ class TypedArrayCompat {
      *              not a resource.
      * @return Attribute resource identifier, or defValue if not defined.
      */
-    public static int getResourceId(Resources.Theme theme, TypedArray a, TypedValue[] values, int index, int def) {
+    static int getResourceId(Resources.Theme theme, TypedArray a, TypedValue[] values, int index, int def) {
         if (values != null && theme != null) {
             TypedValue v = values[index];
             if (v.type == TypedValue.TYPE_ATTRIBUTE) {
@@ -147,8 +147,8 @@ class TypedArrayCompat {
      * @see TypedArray#getDimension
      * @see TypedArray#getDimensionPixelSize
      */
-    public static int getDimensionPixelOffset(Resources.Theme theme, TypedArray a, TypedValue[] values,
-                                              int index, int def) {
+    static int getDimensionPixelOffset(Resources.Theme theme, TypedArray a, TypedValue[] values,
+            int index, int def) {
         if (values != null && theme != null) {
             TypedValue v = values[index];
 
@@ -171,8 +171,6 @@ class TypedArrayCompat {
     }
 
     /**
-     * Extracts theme attributes from a typed array for later resolution using
-     * {@link Resources.Theme#resolveAttributes(int[], int[])}.
      * Removes the entries from the typed array so that subsequent calls to typed
      * getters will return the default value without crashing.
      *
@@ -180,7 +178,7 @@ class TypedArrayCompat {
      * attributes, or null if there are no theme attributes in the typed
      * array
      */
-    public static TypedValue[] extractThemeAttrs(TypedArray array) {
+    static TypedValue[] extractThemeAttrs(TypedArray array) {
         final int N = array.length();
         TypedValue[] values = null;
 
