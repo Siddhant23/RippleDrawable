@@ -7,8 +7,9 @@ import android.content.res.XmlResourceParser;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Drawable.ConstantState;
 import android.os.Build;
-import android.support.v4.util.LongSparseArray;
+import androidx.collection.LongSparseArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -29,9 +30,9 @@ public class LollipopDrawablesCompat {
     private static final Object mAccessLock = new Object();
 
     private static final Map<String, Class<? extends Drawable>> CLASS_MAP = new HashMap<>();
-    private static final LongSparseArray<WeakReference<Drawable.ConstantState>> sDrawableCache = new LongSparseArray<>();
+    private static final LongSparseArray<WeakReference<ConstantState>> sDrawableCache = new LongSparseArray<>();
 
-    private static final LongSparseArray<WeakReference<Drawable.ConstantState>> sColorDrawableCache = new LongSparseArray<>();
+    private static final LongSparseArray<WeakReference<ConstantState>> sColorDrawableCache = new LongSparseArray<>();
 
     private static final IDrawable IMPL;
 
@@ -156,7 +157,7 @@ public class LollipopDrawablesCompat {
         return drawable;
     }
 
-    private static Drawable getCachedDrawable(LongSparseArray<WeakReference<Drawable.ConstantState>> cache,
+    private static Drawable getCachedDrawable(LongSparseArray<WeakReference<ConstantState>> cache,
                                               long key, Resources res) {
         synchronized (mAccessLock) {
             WeakReference<Drawable.ConstantState> wr = cache.get(key);
@@ -199,7 +200,7 @@ public class LollipopDrawablesCompat {
         }
 
         final boolean isColorDrawable;
-        final LongSparseArray<WeakReference<Drawable.ConstantState>> cache;
+        final LongSparseArray<WeakReference<ConstantState>> cache;
         final long key;
 
         if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
@@ -242,7 +243,7 @@ public class LollipopDrawablesCompat {
         return dr;
     }
 
-    private static void cacheDrawable(TypedValue value, Resources resources, Resources.Theme theme, boolean isColorDrawable, long key, Drawable drawable, LongSparseArray<WeakReference<Drawable.ConstantState>> caches) {
+    private static void cacheDrawable(TypedValue value, Resources resources, Resources.Theme theme, boolean isColorDrawable, long key, Drawable drawable, LongSparseArray<WeakReference<ConstantState>> caches) {
 
         Drawable.ConstantState cs = drawable.getConstantState();
         if (cs == null) {
