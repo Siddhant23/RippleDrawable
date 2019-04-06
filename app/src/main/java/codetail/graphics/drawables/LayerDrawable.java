@@ -32,6 +32,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -59,7 +60,7 @@ import org.xmlpull.v1.XmlPullParserException;
  * @attr ref android.R.styleable#LayerDrawableItem_android_drawable
  * @attr ref android.R.styleable#LayerDrawableItem_android_id
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class LayerDrawable extends LollipopDrawable implements Drawable.Callback {
 
     /**
@@ -474,22 +475,22 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public void invalidateDrawable(Drawable who) {
+    public void invalidateDrawable(@NonNull Drawable who) {
         invalidateSelf();
     }
 
     @Override
-    public void scheduleDrawable(Drawable who, Runnable what, long when) {
+    public void scheduleDrawable(@NonNull Drawable who, @NonNull Runnable what, long when) {
         scheduleSelf(what, when);
     }
 
     @Override
-    public void unscheduleDrawable(Drawable who, Runnable what) {
+    public void unscheduleDrawable(@NonNull Drawable who, @NonNull Runnable what) {
         unscheduleSelf(what);
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         final ChildDrawable[] array = mLayerState.mChildren;
         final int N = mLayerState.mNum;
         for (int i = 0; i < N; i++) {
@@ -504,7 +505,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public boolean getPadding(Rect padding) {
+    public boolean getPadding(@NonNull Rect padding) {
         if (mLayerState.mPaddingMode == PADDING_MODE_NEST) {
             computeNestedPadding(padding);
         } else {
@@ -559,7 +560,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
      */
     @Override
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void getOutline(Outline outline) {
+    public void getOutline(@NonNull Outline outline) {
         if (!Android.isLollipop()) {
             return;
         }
@@ -887,6 +888,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
         return null;
     }
 
+    @NonNull
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -912,6 +914,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
             // Default empty constructor.
         }
 
+        @SuppressWarnings("ConstantConditions")
         ChildDrawable(ChildDrawable orig, LayerDrawable owner, Resources res) {
             if (res != null) {
                 mDrawable = orig.mDrawable.getConstantState().newDrawable(res);
@@ -996,11 +999,13 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
             return false;
         }
 
+        @NonNull
         @Override
         public Drawable newDrawable() {
             return new LayerDrawable(this, null);
         }
 
+        @NonNull
         @Override
         public Drawable newDrawable(Resources res) {
             return new LayerDrawable(this, res);

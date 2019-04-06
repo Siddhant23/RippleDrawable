@@ -6,12 +6,11 @@ import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-
+import java.io.IOException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 
 /**
  * This drawable was created to support old API's
@@ -23,14 +22,13 @@ public abstract class LollipopDrawable extends Drawable {
     /**
      * Inflate this Drawable from an XML resource optionally styled by a theme.
      *
-     * @param r Resources used to resolve attribute values
+     * @param r      Resources used to resolve attribute values
      * @param parser XML parser from which to inflate this Drawable
-     * @param attrs Base set of attribute values
-     * @param theme Theme to apply, may be null
-     * @throws XmlPullParserException
-     * @throws IOException
+     * @param attrs  Base set of attribute values
+     * @param theme  Theme to apply, may be null
      */
-    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Resources.Theme theme)
+    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs,
+            Resources.Theme theme)
             throws XmlPullParserException, IOException {
     }
 
@@ -93,7 +91,7 @@ public abstract class LollipopDrawable extends Drawable {
      * tint.
      *
      * @param tint Color state list to use for tinting this drawable, or null to
-     *            clear the tint
+     *             clear the tint
      * @see #setTintMode(PorterDuff.Mode)
      */
     public void setTintList(ColorStateList tint) {}
@@ -105,7 +103,7 @@ public abstract class LollipopDrawable extends Drawable {
      * tint.
      *
      * @param tintMode Color state list to use for tinting this drawable, or null to
-     *            clear the tint
+     *                 clear the tint
      * @param tintMode A Porter-Duff blending mode
      */
     public void setTintMode(PorterDuff.Mode tintMode) {}
@@ -121,15 +119,12 @@ public abstract class LollipopDrawable extends Drawable {
     /**
      * Sets the bounds to which the hotspot is constrained, if they should be
      * different from the drawable bounds.
-     *
-     * @param left
-     * @param top
-     * @param right
-     * @param bottom
      */
     public void setHotspotBounds(int left, int top, int right, int bottom) {}
 
-    /** @hide For internal use only. Individual results may vary. */
+    /**
+     * @hide For internal use only. Individual results may vary.
+     */
     public void getHotspotBounds(Rect outRect) {
         outRect.set(getBounds());
     }
@@ -144,6 +139,7 @@ public abstract class LollipopDrawable extends Drawable {
      *
      * @return The dirty bounds of this drawable
      */
+    @NonNull
     public Rect getDirtyBounds() {
         return getBounds();
     }

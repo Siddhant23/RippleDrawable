@@ -1,6 +1,5 @@
 package codetail.graphics.drawables;
 
-import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 import android.os.Build;
@@ -23,17 +22,6 @@ class Android {
      */
     static boolean isLollipop() {
         return VERSION >= LOLLIPOP;
-    }
-
-    /**
-     * Return whether current {@link #VERSION} is equals Kitkat(19)
-     * sdk version
-     *
-     * @return whether current version is equals Kitkat(19)
-     * sdk version
-     */
-    static boolean isKitkat() {
-        return VERSION >= KITKAT;
     }
 
 }

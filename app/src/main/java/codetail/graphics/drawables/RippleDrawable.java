@@ -928,6 +928,7 @@ public class RippleDrawable extends LayerDrawable {
             return new RippleDrawable(this, null);
         }
 
+        @NonNull
         @Override
         public Drawable newDrawable(Resources res) {
             return new RippleDrawable(this, res);
