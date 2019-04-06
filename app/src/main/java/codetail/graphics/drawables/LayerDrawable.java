@@ -139,7 +139,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme)
+    public void inflate(@NonNull Resources r, @NonNull XmlPullParser parser, @NonNull AttributeSet attrs, Theme theme)
             throws XmlPullParserException, IOException {
         super.inflate(r, parser, attrs, theme);
 
@@ -246,7 +246,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public void applyTheme(Theme t) {
+    public void applyTheme(@NonNull Theme t) {
         super.applyTheme(t);
 
         final LayerState state = mLayerState;
@@ -313,6 +313,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
      * @param right      The right padding of the new layer.
      * @param bottom     The bottom padding of the new layer.
      */
+    @SuppressWarnings("SameParameterValue")
     ChildDrawable addLayer(Drawable layer, TypedValue[] themeAttrs, int id, int left, int top, int right, int bottom) {
         final ChildDrawable childDrawable = new ChildDrawable();
         childDrawable.mId = id;
@@ -600,7 +601,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
         }
     }
 
-    public void getHotspotBounds(Rect outRect) {
+    public void getHotspotBounds(@NonNull Rect outRect) {
         if (mHotspotBounds != null) {
             outRect.set(mHotspotBounds);
         }
@@ -668,7 +669,7 @@ public class LayerDrawable extends LollipopDrawable implements Drawable.Callback
     }
 
     @Override
-    public void setTintMode(Mode tintMode) {
+    public void setTintMode(@NonNull Mode tintMode) {
         final ChildDrawable[] array = mLayerState.mChildren;
         final int N = mLayerState.mNum;
         for (int i = 0; i < N; i++) {

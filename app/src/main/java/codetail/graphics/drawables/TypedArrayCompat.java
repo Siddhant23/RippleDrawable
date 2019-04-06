@@ -1,6 +1,8 @@
 package codetail.graphics.drawables;
 
 
+import static android.util.TypedValue.TYPE_ATTRIBUTE;
+
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -9,9 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.TypedValue;
 
-import static android.util.TypedValue.TYPE_ATTRIBUTE;
-
 class TypedArrayCompat {
+
     private static final int[] TEMP_ARRAY = new int[1];
 
     private final static ITypedArray IMPL;
@@ -32,8 +33,7 @@ class TypedArrayCompat {
      * @param index Index of attribute to retrieve.
      * @return ColorStateList for the attribute, or null if not defined.
      */
-    static ColorStateList getColorStateList(Resources.Theme theme, TypedArray a,
-            TypedValue[] values, int index) {
+    static ColorStateList getColorStateList(Resources.Theme theme, TypedArray a, TypedValue[] values, int index) {
         if (values != null && theme != null) {
             TypedValue v = values[index];
 
@@ -206,6 +206,7 @@ class TypedArrayCompat {
     }
 
     interface ITypedArray {
+
         int getChangingConfigurations(TypedArray array);
     }
 

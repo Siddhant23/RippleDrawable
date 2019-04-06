@@ -79,6 +79,7 @@ import dreamers.graphics.R;
  *
  * @attr ref android.R.styleable#RippleDrawable_color
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class RippleDrawable extends LayerDrawable {
     private static final int MASK_UNKNOWN = -1;
     private static final int MASK_NONE = 0;
@@ -337,7 +338,7 @@ public class RippleDrawable extends LayerDrawable {
     }
 
     @Override
-    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Theme theme)
+    public void inflate(@NonNull Resources r, @NonNull XmlPullParser parser, @NonNull AttributeSet attrs, Theme theme)
             throws XmlPullParserException, IOException {
         final TypedArray a = obtainAttributes(r, theme, attrs, R.styleable.RippleDrawable);
         updateStateFromTypedArray(null, a, null);
@@ -427,7 +428,7 @@ public class RippleDrawable extends LayerDrawable {
     }
 
     @Override
-    public void applyTheme(Theme t) {
+    public void applyTheme(@NonNull Theme t) {
         super.applyTheme(t);
 
         final RippleState state = mState;
@@ -556,7 +557,7 @@ public class RippleDrawable extends LayerDrawable {
 
     /** @hide */
     @Override
-    public void getHotspotBounds(Rect outRect) {
+    public void getHotspotBounds(@NonNull Rect outRect) {
         outRect.set(mHotspotBounds);
     }
 
@@ -609,21 +610,12 @@ public class RippleDrawable extends LayerDrawable {
         final Rect bounds = getDirtyBounds();
 
         canvas.save();
-
         canvas.clipRect(bounds);
 
         drawContent(canvas);
         drawBackgroundAndRipples(canvas);
 
         canvas.restore();
-
-//        final int saveCount = canvas.save(Canvas.CLIP_SAVE_FLAG);
-//        canvas.clipRect(bounds);
-//
-//        drawContent(canvas);
-//        drawBackgroundAndRipples(canvas);
-//
-//        canvas.restoreToCount(saveCount);
     }
 
     @Override
@@ -843,6 +835,7 @@ public class RippleDrawable extends LayerDrawable {
         return mRipplePaint;
     }
 
+    @NonNull
     @Override
     public Rect getDirtyBounds() {
         if (isProjected()) {
@@ -883,6 +876,7 @@ public class RippleDrawable extends LayerDrawable {
         return mState;
     }
 
+    @NonNull
     @Override
     public Drawable mutate() {
         super.mutate();
@@ -923,6 +917,7 @@ public class RippleDrawable extends LayerDrawable {
             return mTouchThemeAttrs != null || super.canApplyTheme();
         }
 
+        @NonNull
         @Override
         public Drawable newDrawable() {
             return new RippleDrawable(this, null);

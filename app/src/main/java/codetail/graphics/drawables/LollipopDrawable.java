@@ -27,7 +27,7 @@ public abstract class LollipopDrawable extends Drawable {
      * @param attrs  Base set of attribute values
      * @param theme  Theme to apply, may be null
      */
-    public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs,
+    public void inflate(@NonNull Resources r, @NonNull XmlPullParser parser, @NonNull AttributeSet attrs,
             Resources.Theme theme)
             throws XmlPullParserException, IOException {
     }
@@ -69,7 +69,7 @@ public abstract class LollipopDrawable extends Drawable {
     /**
      * Applies the specified theme to this Drawable and its children.
      */
-    public void applyTheme(Resources.Theme t) {}
+    public void applyTheme(@NonNull Resources.Theme t) {}
 
     /**
      * Specifies a tint for this drawable.
@@ -106,7 +106,7 @@ public abstract class LollipopDrawable extends Drawable {
      *                 clear the tint
      * @param tintMode A Porter-Duff blending mode
      */
-    public void setTintMode(PorterDuff.Mode tintMode) {}
+    public void setTintMode(@NonNull PorterDuff.Mode tintMode) {}
 
     /**
      * Specifies the hotspot's location within the drawable.
@@ -125,7 +125,7 @@ public abstract class LollipopDrawable extends Drawable {
     /**
      * @hide For internal use only. Individual results may vary.
      */
-    public void getHotspotBounds(Rect outRect) {
+    public void getHotspotBounds(@NonNull Rect outRect) {
         outRect.set(getBounds());
     }
 

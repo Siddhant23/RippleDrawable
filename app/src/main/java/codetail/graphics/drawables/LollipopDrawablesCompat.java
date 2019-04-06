@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class LollipopDrawablesCompat {
     private static final Object mAccessLock = new Object();
 
