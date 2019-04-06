@@ -9,7 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Drawable.ConstantState;
 import android.os.Build;
-import androidx.collection.LongSparseArray;
+import android.support.v4.util.LongSparseArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;

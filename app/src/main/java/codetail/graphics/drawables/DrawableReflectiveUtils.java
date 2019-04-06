@@ -19,8 +19,8 @@ import static android.graphics.PorterDuff.Mode;
 
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import androidx.collection.LruCache;
-import androidx.collection.SimpleArrayMap;
+import android.support.v4.util.LruCache;
+import android.support.v4.util.SimpleArrayMap;
 import android.util.Log;
 import java.lang.reflect.Method;
 

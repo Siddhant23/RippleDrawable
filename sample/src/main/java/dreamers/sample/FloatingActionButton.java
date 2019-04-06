@@ -4,7 +4,7 @@ package dreamers.sample;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class FloatingActionButton extends androidx.appcompat.widget.AppCompatImageButton {
+public class FloatingActionButton extends android.support.v7.widget.AppCompatImageButton {
 
     public FloatingActionButton(Context context) {
         this(context, null);

@@ -3,7 +3,7 @@ package codetail.graphics.drawables;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import androidx.annotation.Nullable;
+import android.support.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
