@@ -1,19 +1,44 @@
 
-*RippleDrawable*
-=============
-Port of Android `<ripple>` effect for pre lollipop devices with android 14 + (ICS+)
+# RippleDrawable
 
-(well, since NineOldAndroids is deprecated, this library become 14 + only)
+Port of Android `<ripple>` effect for pre-Lollipop devices (API 16+)
 
-### Features
+## Features
+
 1. XML inflating
 2. Ripple supports different shapes
 3. Custom drawable loader
 4. Define your custom drawable tags
 
-#### Implementation
+## Old Library
 
-Create your desirable ripple.xml in `drawable/` folder
+This project is originally forked from [ozodrukh/RippleDrawable](https://github.com/ozodrukh/RippleDrawable) but has
+been revamped and given some TLC. The parent repository has been stagnant since **March 30th, 2016**.
+
+## Installation
+
+#### Gradle
+
+Add it to your build.gradle with:
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+and:
+
+```gradle
+dependencies {
+    implementation 'com.github.addisonElliott:RippleDrawable:$LATEST_VERSION'
+}
+```
+
+## Usage
+
+Create your desired ripple XML and place it in the `drawable/` folder. An example ripple effect XML is shown below,
+which was named `fab_background.xml` in this case.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -32,8 +57,9 @@ Create your desirable ripple.xml in `drawable/` folder
 
 ```
 
-Secondly we need to inflate `RippleDrawable` and intercept `View` touches
-see `LollipopDrawablesCompat` and `DrawableHotspotTouch` for inflating and interception sequently. Here is sample:
+Next, the ripple XML file is inflated into a `RippleDrawable` using `LollipopDrawablesCompat.getDrawable`. In addition,
+a `DrawableHotspotTouch` instance must be created and setup for the `View` so that the ripples are shown when the `View`
+ is tapped.
 
 ```java
 
@@ -41,7 +67,7 @@ public class SampleActivity extends AppCompatActivity {
 
     private FloatingActionButton mActionButton;
 
-      @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
@@ -53,7 +79,7 @@ public class SampleActivity extends AppCompatActivity {
                 new DrawableHotspotTouch((LollipopDrawable) mActionButton.getBackground()));
     }
     
-/**
+    /**
      * {@link #getDrawable(int)} is already taken by Android API
      * and method is final, so we need to give another name :(
      */
@@ -64,57 +90,44 @@ public class SampleActivity extends AppCompatActivity {
 
 ```
 
-**Thats it!**
+**That's it!**
 
-##Dependency
+### But there's more!
 
-root build.gradle add a repository 
-```groovy
-    repositories {
-        maven {
-            url "https://jitpack.io"
-        }
-    }
-```
+You can inflate and create your own `Drawable` classes. Here are a few tips & tricks.
 
-and in application module just add
-```groovy 
-    dependencies {
-            compile 'com.github.ozodrukh:RippleDrawable:2.0.0'
-    }
-```
+1. Extend your Drawable from `LollipopDrawable`
 
-#### a little bit more
-
-you can inflate and create your own `Drawable`classes, here is tips & tricks
-
-1 extend your Drawable from `LollipopDrawable`
 ```java
     public class LayerDrawable extends LollipopDrawable {
 ```
 
-2 implement your own inflation
+2. Implement your own `inflate` function
+
 ```java
     public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs, Resources.Theme theme);
 ```
-3 Register your `LollipopDrawable`
+
+3. Register your custom `LollipopDrawable` class
+
 ```java
 static {   
     LollipopDrawablesCompat.registerDrawable(RippleDrawable.class, "ripple");
 }
 ```
 
-4 inflate it!
+4. Inflate the custom class!
+
 ```java
     LollipopDrawablesCompat.getDrawable(getResources(), R.drawable.custom_drawable, getTheme());
 ```
 
-License
---------
+## License
 
     The MIT License (MIT)
 
     Copyright (c) 2015 Abdullaev Ozodrukh
+    Copyright (C) 2019 Addison Elliott
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
