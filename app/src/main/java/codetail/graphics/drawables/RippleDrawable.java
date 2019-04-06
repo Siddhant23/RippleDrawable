@@ -1,5 +1,6 @@
 package codetail.graphics.drawables;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
@@ -25,14 +26,11 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+import dreamers.graphics.R;
 import java.io.IOException;
 import java.util.Arrays;
-
-import dreamers.graphics.R;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * Drawable that shows a ripple effect in response to state changes. The
@@ -81,6 +79,7 @@ import dreamers.graphics.R;
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class RippleDrawable extends LayerDrawable {
+
     private static final int MASK_UNKNOWN = -1;
     private static final int MASK_NONE = 0;
     private static final int MASK_CONTENT = 1;
@@ -89,32 +88,46 @@ public class RippleDrawable extends LayerDrawable {
     /**
      * Constant for automatically determining the maximum ripple radius.
      *
-     * @see #setMaxRadius(int)
      * @hide
+     * @see #setMaxRadius(int)
      */
     public static final int RADIUS_AUTO = -1;
 
-    /** The maximum number of ripples supported. */
+    /**
+     * The maximum number of ripples supported.
+     */
     private static final int MAX_RIPPLES = 10;
 
     private final Rect mTempRect = new Rect();
 
-    /** Current ripple effect bounds, used to constrain ripple effects. */
+    /**
+     * Current ripple effect bounds, used to constrain ripple effects.
+     */
     private final Rect mHotspotBounds = new Rect();
 
-    /** Current drawing bounds, used to compute dirty region. */
+    /**
+     * Current drawing bounds, used to compute dirty region.
+     */
     private final Rect mDrawingBounds = new Rect();
 
-    /** Current dirty bounds, union of current and previous drawing bounds. */
+    /**
+     * Current dirty bounds, union of current and previous drawing bounds.
+     */
     private final Rect mDirtyBounds = new Rect();
 
-    /** Mirrors mLayerState with some extra information. */
+    /**
+     * Mirrors mLayerState with some extra information.
+     */
     private RippleState mState;
 
-    /** The masking layer, e.g. the layer with id R.id.mask. */
+    /**
+     * The masking layer, e.g. the layer with id R.id.mask.
+     */
     private Drawable mMask;
 
-    /** The current background. May be actively animating or pending entry. */
+    /**
+     * The current background. May be actively animating or pending entry.
+     */
     private RippleBackground mBackground;
 
     private Bitmap mMaskBuffer;
@@ -124,13 +137,19 @@ public class RippleDrawable extends LayerDrawable {
     private PorterDuffColorFilter mMaskColorFilter;
     private boolean mHasValidMask;
 
-    /** Whether we expect to draw a background when visible. */
+    /**
+     * Whether we expect to draw a background when visible.
+     */
     private boolean mBackgroundActive;
 
-    /** The current ripple. May be actively animating or pending entry. */
+    /**
+     * The current ripple. May be actively animating or pending entry.
+     */
     private Ripple mRipple;
 
-    /** Whether we expect to draw a ripple when visible. */
+    /**
+     * Whether we expect to draw a ripple when visible.
+     */
     private boolean mRippleActive;
 
     // Hotspot coordinates that are awaiting activation.
@@ -145,13 +164,19 @@ public class RippleDrawable extends LayerDrawable {
     private Ripple[] mExitingRipples;
     private int mExitingRipplesCount = 0;
 
-    /** Paint used to control appearance of ripples. */
+    /**
+     * Paint used to control appearance of ripples.
+     */
     private Paint mRipplePaint;
 
-    /** Target density of the display into which ripples are drawn. */
+    /**
+     * Target density of the display into which ripples are drawn.
+     */
     private float mDensity = 1.0f;
 
-    /** Whether bounds are being overridden. */
+    /**
+     * Whether bounds are being overridden.
+     */
     private boolean mOverrideBounds;
 
     /**
@@ -165,12 +190,13 @@ public class RippleDrawable extends LayerDrawable {
      * Creates a new ripple drawable with the specified ripple color and
      * optional content and mask drawables.
      *
-     * @param color The ripple color
+     * @param color   The ripple color
      * @param content The content drawable, may be {@code null}
-     * @param mask The mask drawable, may be {@code null}
+     * @param mask    The mask drawable, may be {@code null}
      */
+    @SuppressLint("InlinedApi")
     public RippleDrawable(@NonNull ColorStateList color, @Nullable Drawable content,
-                          @Nullable Drawable mask) {
+            @Nullable Drawable mask) {
         this(new RippleState(null, null, null), null);
 
         if (content != null) {
@@ -372,12 +398,12 @@ public class RippleDrawable extends LayerDrawable {
      * {@link #PADDING_MODE_STACK}.
      *
      * @param mode padding mode, one of:
-     *            <ul>
-     *            <li>{@link #PADDING_MODE_NEST} to nest each layer inside the
-     *            padding of the previous layer
-     *            <li>{@link #PADDING_MODE_STACK} to stack each layer directly
-     *            atop the previous layer
-     *            </ul>
+     *             <ul>
+     *             <li>{@link #PADDING_MODE_NEST} to nest each layer inside the
+     *             padding of the previous layer
+     *             <li>{@link #PADDING_MODE_STACK} to stack each layer directly
+     *             atop the previous layer
+     *             </ul>
      * @see #getPaddingMode()
      */
     @Override
@@ -388,7 +414,8 @@ public class RippleDrawable extends LayerDrawable {
     /**
      * Initializes the constant state from the values in the typed array.
      */
-    private void updateStateFromTypedArray(Theme theme, TypedArray a, TypedValue[] values) throws XmlPullParserException {
+    private void updateStateFromTypedArray(Theme theme, TypedArray a, TypedValue[] values)
+            throws XmlPullParserException {
         final RippleState state = mState;
 
         // Account for any configuration changes.
@@ -555,7 +582,9 @@ public class RippleDrawable extends LayerDrawable {
         onHotspotBoundsChanged();
     }
 
-    /** @hide */
+    /**
+     * @hide
+     */
     @Override
     public void getHotspotBounds(@NonNull Rect outRect) {
         outRect.set(mHotspotBounds);
@@ -595,7 +624,7 @@ public class RippleDrawable extends LayerDrawable {
         for (int i = 0; i < N; i++) {
             if (children[i].mId != android.R.id.mask) {
                 children[i].mDrawable.getOutline(outline);
-                if (!outline.isEmpty()) return;
+                if (!outline.isEmpty()) { return; }
             }
         }
     }
@@ -876,6 +905,7 @@ public class RippleDrawable extends LayerDrawable {
         return mState;
     }
 
+    @SuppressLint("InlinedApi")
     @NonNull
     @Override
     public Drawable mutate() {
@@ -897,6 +927,7 @@ public class RippleDrawable extends LayerDrawable {
     }
 
     static class RippleState extends LayerState {
+
         TypedValue[] mTouchThemeAttrs;
         ColorStateList mColor = ColorStateList.valueOf(Color.MAGENTA);
         int mMaxRadius = RADIUS_AUTO;
@@ -904,7 +935,7 @@ public class RippleDrawable extends LayerDrawable {
         public RippleState(LayerState orig, RippleDrawable owner, Resources res) {
             super(orig, owner, res);
 
-            if (orig != null && orig instanceof RippleState) {
+            if (orig instanceof RippleState) {
                 final RippleState origs = (RippleState) orig;
                 mTouchThemeAttrs = origs.mTouchThemeAttrs;
                 mColor = origs.mColor;
@@ -936,11 +967,11 @@ public class RippleDrawable extends LayerDrawable {
      * of the drawable bounds (or hotspot bounds, if specified) to a corner.
      *
      * @param maxRadius the maximum ripple radius in pixels or
-     *            {@link #RADIUS_AUTO} to automatically determine the maximum
-     *            radius based on the bounds
+     *                  {@link #RADIUS_AUTO} to automatically determine the maximum
+     *                  radius based on the bounds
+     * @hide
      * @see #getMaxRadius()
      * @see #setHotspotBounds(int, int, int, int)
-     * @hide
      */
     public void setMaxRadius(int maxRadius) {
         if (maxRadius != RADIUS_AUTO && maxRadius < 0) {
@@ -952,9 +983,9 @@ public class RippleDrawable extends LayerDrawable {
 
     /**
      * @return the maximum ripple radius in pixels, or {@link #RADIUS_AUTO} if
-     *         the radius is determined automatically
-     * @see #setMaxRadius(int)
+     * the radius is determined automatically
      * @hide
+     * @see #setMaxRadius(int)
      */
     public int getMaxRadius() {
         return mState.mMaxRadius;
@@ -975,6 +1006,7 @@ public class RippleDrawable extends LayerDrawable {
         initializeFromState();
     }
 
+    @SuppressLint("InlinedApi")
     private void initializeFromState() {
         // Initialize from constant state.
         mMask = findDrawableByLayerId(android.R.id.mask);
