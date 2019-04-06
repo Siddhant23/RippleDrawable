@@ -38,9 +38,9 @@ dependencies {
 **Note:** The `$LATEST_VERSION` string should be replaced with the latest version. The available versions can be found
 here: https://jitpack.io/#addisonElliott/RippleDrawable
 
-The last version to use the Android support libraries was **2.1.0**. All versions past this use the AndroidX libraries.
-If you want the latest support library version, you can also use `support` for the `$LATEST_VERSION`. No bug fixes or
-features will be added to the `support` path. It is recommended to upgrade your project to AndroidX.
+The last version to use the Android support libraries was **2.1.0**. Version **3.0.0** and above use the AndroidX
+library. Periodic releases with the support library will be released based on user demand with the version appended with
+`-support` (e.g. `2.1.0-support` for `$LATEST_VERSION`). It is strongly recommended to upgrade your project to AndroidX.
 
 ## Usage
 
