@@ -49,10 +49,9 @@ which was named `fab_background.xml` in this case.
     <!-- for Floating Action Button -->
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/accent_material_dark"/>
+            <solid android:color="@color/accent_material_dark" />
         </shape>
     </item>
-
 </ripple>
 
 ```
@@ -74,7 +73,7 @@ public class SampleActivity extends AppCompatActivity {
         
         mActionButton = (FloatingActionButton) findViewById(R.id.fab);
         mActionButton.setBackgroundDrawable(getDrawable2(R.drawable.fab_background));
-        mActionButton.setClickable(true);// if we don't set it true, ripple will not be played
+        mActionButton.setClickable(true); // if we don't set it true, ripple will not be played
         mActionButton.setOnTouchListener(
                 new DrawableHotspotTouch((LollipopDrawable) mActionButton.getBackground()));
     }
@@ -83,7 +82,7 @@ public class SampleActivity extends AppCompatActivity {
      * {@link #getDrawable(int)} is already taken by Android API
      * and method is final, so we need to give another name :(
      */
-    public Drawable getDrawable2(int id){
+    public Drawable getDrawable2(int id) {
         return LollipopDrawablesCompat.getDrawable(getResources(), id, getTheme());
     }
 }
@@ -92,9 +91,9 @@ public class SampleActivity extends AppCompatActivity {
 
 **That's it!**
 
-### But there's more!
+### But there's more...
 
-You can inflate and create your own `Drawable` classes. Here are a few tips & tricks.
+You can inflate and create your own `Drawable` classes. Here's how you can do it.
 
 1. Extend your Drawable from `LollipopDrawable`
 
